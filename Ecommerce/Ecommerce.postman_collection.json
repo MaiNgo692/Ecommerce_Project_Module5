@@ -1,0 +1,2083 @@
+{
+	"info": {
+		"_postman_id": "f101c4aa-7ff8-4797-be06-49c36365ae02",
+		"name": "Ecommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19655021"
+	},
+	"item": [
+		{
+			"name": "PermitAll",
+			"item": [
+				{
+					"name": "sign-up*",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"username\":\"xuanhoang\",\r\n\"password\":\"123456\",\r\n\"confirmPassword\":\"123456\",\r\n\"fullName\":\"Hoàng Ngọc Xuân\",\r\n\"email\":\"xuanhoang@gmail.com\",\r\n\"phone\":\"0346197186\",\r\n\"address\":\"Huế\",\r\n\"roles\":[\"USER\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/auth/sign-up",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"auth",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sign-in*",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.environment.set(\"token\", jsonData.accessToken);\r",
+									"pm.environment.set(\"userId\", jsonData.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"username\":\"maingo1\",\r\n\"password\":\"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/auth/sign-in",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"auth",
+								"sign-in"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/categories",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search-product-by-name-or-description*",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/products/search?searchName=A",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"products",
+								"search"
+							],
+							"query": [
+								{
+									"key": "searchName",
+									"value": "A"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-products*",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/products?pageNumber=1&pageSize=5&sort_by=productName&how_sort=desc",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "sort_by",
+									"value": "productName"
+								},
+								{
+									"key": "how_sort",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-new-products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/products/new-products",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"products",
+								"new-products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "featured-products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/products/featured-products",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"products",
+								"featured-products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "best-seller-product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/products/best-seller-products",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"products",
+								"best-seller-products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "products-by-category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/products/categories/:categotyId",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"products",
+								"categories",
+								":categotyId"
+							],
+							"variable": [
+								{
+									"key": "categotyId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-product-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/products/:productId",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"products",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "11"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RoleUser",
+			"item": [
+				{
+					"name": "get-shopping-cart*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/shopping-cart?userId={{userId}}",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"shopping-cart"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-to-cart*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"productId\": 14,\r\n\"quantity\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/shopping-cart?userId={{userId}}",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"shopping-cart"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-quantity-in-cart*",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/shopping-cart/:cartItemId?userId={{userId}}&quantity=20",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"shopping-cart",
+								":cartItemId"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								},
+								{
+									"key": "quantity",
+									"value": "20"
+								}
+							],
+							"variable": [
+								{
+									"key": "cartItemId",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-item-in-cart*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/shopping-cart/:cartItemId?userId={{userId}}",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"shopping-cart",
+								":cartItemId"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "cartItemId",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-cart*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/shopping-cart?userId={{userId}}",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"shopping-cart"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "checkout*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"addressId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/shopping-cart/checkout?userId={{userId}}",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"shopping-cart",
+								"checkout"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-user*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/account?userId={{userId}}",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"account"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-user*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "Hồ Xuân Hùng",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "hung1234@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "0993784672",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Quận Tân Bình, TP Hồ Chí Minh",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "postman-cloud:///1ef0232d-3b57-4680-9ca7-d1d06e5b03f2"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/account?userId={{userId}}",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"account"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change-password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"oldPassword\": \"abcd\",\r\n\"newPassword\": \"123456\",\r\n\"confirmPassword\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/account/change-password?userId={{userId}}",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"account",
+								"change-password"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-new-address",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"receiveName\":\"hunghx\",\r\n\"fullAddress\": \"171 Xã đàn, Đống đa , Hà Nội\",\r\n\"phone\": \"0998378267\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/account/address?userId={{userId}}",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"account",
+								"address"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-address-by-id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/account/address/:addressId?userId={{userId}}",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"account",
+								"address",
+								":addressId"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "addressId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-address",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/account/address?userId={{userId}}",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"account",
+								"address"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-address-by-id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/account/address/:addressId?userId={{userId}}",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"account",
+								"address",
+								":addressId"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "addressId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "history",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/history?userId={{userId}}",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"history"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "history-by-serial",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/history/:serialNumber?userId={{userId}}",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"history",
+								":serialNumber"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "serialNumber",
+									"value": "d6d8bfd2-2f30-4f39-8a98-22f597db7f2a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "history-by-status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/history/status/:orderStatus?userId={{userId}}",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"history",
+								"status",
+								":orderStatus"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "orderStatus",
+									"value": "WAITING"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancel",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/history/:serialNumber/cancel?userId={{userId}}",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"history",
+								":serialNumber",
+								"cancel"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "serialNumber",
+									"value": "d6d8bfd2-2f30-4f39-8a98-22f597db7f2a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-wish-list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/wish-list?userId={{userId}}",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"wish-list"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-wish-list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/wish-list?userId={{userId}}",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"wish-list"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-product-from-wish-list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/user/wish-list/:wishListId?userId={{userId}}",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"user",
+								"wish-list",
+								":wishListId"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "wishListId",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RoleAdmin",
+			"item": [
+				{
+					"name": "get-users*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/users?pageNumber=1&pageSize=2&sort_by=fullname&how_sort=DESC",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"users"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								},
+								{
+									"key": "sort_by",
+									"value": "fullname"
+								},
+								{
+									"key": "how_sort",
+									"value": "DESC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-role-for-user*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/users/:userId/role/:roldId",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"users",
+								":userId",
+								"role",
+								":roldId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "21"
+								},
+								{
+									"key": "roldId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-role-of-user*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/users/:userId/role/:roldId",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"users",
+								":userId",
+								"role",
+								":roldId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "21"
+								},
+								{
+									"key": "roldId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "active-inactive-user*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/users/:userId",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "24"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-roles*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/roles",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search-user-by-name*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/users/search?pageNumber=1&pageSize=2&sort_by=fullname&how_sort=DESC&searchName=mai",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"users",
+								"search"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								},
+								{
+									"key": "sort_by",
+									"value": "fullname"
+								},
+								{
+									"key": "how_sort",
+									"value": "DESC"
+								},
+								{
+									"key": "searchName",
+									"value": "mai"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-product*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/products?pageNumber=1&pageSize=3&sort_by=productName&how_sort=asc",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"products"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "3"
+								},
+								{
+									"key": "sort_by",
+									"value": "productName"
+								},
+								{
+									"key": "how_sort",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-product-by-id*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/products/:productId",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"products",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-new-product*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "productName",
+									"value": "[New 2023] Laptop Asus Zenbook 14 Q420VA ",
+									"contentType": "",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "(i7-13700H, 16GB, SSD 512GB, Màn 14.5' 2.8K, 120Hz OLED)",
+									"type": "text"
+								},
+								{
+									"key": "unitPrice",
+									"value": "21590000",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "100",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1ef0770a-fe77-4d50-8f66-e0e69b5506e0"
+								},
+								{
+									"key": "categoryId",
+									"value": "7",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/products",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-product*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "productName",
+									"value": "Sản phẩm C",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "mô tả sản phẩm C",
+									"type": "text"
+								},
+								{
+									"key": "unitPrice",
+									"value": "20000",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "300",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1ef0232d-40a9-4b60-b05b-96c47ab84173"
+								},
+								{
+									"key": "categoryId",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/products/:productId",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"products",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-product*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/products/:productId",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"products",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-categories*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/categories?pageNumber=1&pageSize=2&sort_by=categoryName&how_sort=ASC",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								},
+								{
+									"key": "sort_by",
+									"value": "categoryName"
+								},
+								{
+									"key": "how_sort",
+									"value": "ASC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-category-by-id*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/categories/:categoryId",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"categories",
+								":categoryId"
+							],
+							"variable": [
+								{
+									"key": "categoryId",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-new-category*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryName\":\"Danh mục D\",\r\n    \"description\":\"Mô tả danh mục D\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/categories",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-category*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryName\":\"Danh mục E\",\r\n    \"description\":\"Mô tả danh mục D\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/categories/:categoryId",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"categories",
+								":categoryId"
+							],
+							"variable": [
+								{
+									"key": "categoryId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-category*",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/categories/:categoryId",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"categories",
+								":categoryId"
+							],
+							"variable": [
+								{
+									"key": "categoryId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/orders",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-order-by-status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/orders/:orderStatus",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"orders",
+								":orderStatus"
+							],
+							"variable": [
+								{
+									"key": "orderStatus",
+									"value": "WAITING"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-order-detail-by-order-id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/orders/detail/:orderId",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"orders",
+								"detail",
+								":orderId"
+							],
+							"variable": [
+								{
+									"key": "orderId",
+									"value": "14"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change-order-status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/orders/:orderId/oderStatus/:oderStatus",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"orders",
+								":orderId",
+								"oderStatus",
+								":oderStatus"
+							],
+							"variable": [
+								{
+									"key": "orderId",
+									"value": "14"
+								},
+								{
+									"key": "oderStatus",
+									"value": "CONFIRM"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-sales-period-time",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\":\"01-04-2024\",\r\n    \"to\":\"30-04-2024\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/dash-board/sales",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"dash-board",
+								"sales"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-sales-by-category",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\":\"01-04-2024\",\r\n    \"to\":\"30-04-2024\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/dash-board/sales/categories",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"dash-board",
+								"sales",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-best-sales-product-in-month",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}{{subDomain}}/admin/dash-board/sales/best-seller-products",
+							"host": [
+								"{{domain}}{{subDomain}}"
+							],
+							"path": [
+								"admin",
+								"dash-board",
+								"sales",
+								"best-seller-products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
